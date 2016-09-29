@@ -1,13 +1,18 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 import sqlite3
 from datetime import date
 
 app = Flask(__name__)
 
 
-@app.route('/clear')
+@app.route("/")
 def root():
+    return redirect(url_for('static', filename="index.html"))
+
+
+@app.route('/clear')
+def clear():
     conn = sqlite3.connect('weigth.db')
     try:
         conn.execute('''DROP TABLE weigths''')
@@ -19,11 +24,11 @@ def root():
     return "created new table weigths"
 
 
-@app.route("/insert/<weigth>")
-def insert(weigth=0):
+@app.route("/insert", methods=['POST'])
+def insert():
     converted = 0.0
     try:
-        converted = float(weigth)
+        converted = float(request.form['weigth'])
     except ValueError:
         return 'Weigth not valid number'
 
@@ -31,7 +36,7 @@ def insert(weigth=0):
     with conn:
         conn.execute('insert into weigths values (?, ?)', (date.today(), converted))
     conn.close()
-    return 'Inserted: {} {}'.format(date.today(), converted)
+    return redirect(url_for('graph'))
 
 
 @app.route("/graph")
@@ -45,7 +50,7 @@ def data():
     cur = conn.cursor()
     cur.execute('select * from weigths order by date')
     all = cur.fetchall()
-    s = 'date\tweigth\n'
+    s = 'date\tGewicht\n'
     for row in all:
         s = s + '{}\t{}\n'.format(row[0], row[1])
     return(s)

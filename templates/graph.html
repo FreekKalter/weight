@@ -1,116 +1,73 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        //relevant CSS classes include:
 
-body {
-  font: 10px sans-serif;
-}
+        //Labels on the X & Y axes:
+        .dygraph-axis-label
+        .dygraph-axis-label-x
+        .dygraph-axis-label-y
+        .dygraph-axis-label-y2
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
+        //chart labels, see http://dygraphs.com/tests/styled-chart-labels.html
+        .dygraph-title
+        .dygraph-xlabel
+        .dygraph-ylabel
+        .dygraph-y2label
 
-.x.axis path {
-  display: none;
-}
+        //the legend, see http://dygraphs.com/tests/series-highlight.html
+        .dygraph-legend
 
-.line-pos {
-  fill: none;
-  stroke: green;
-  stroke-width: 1.5px;
-}
+        .dygraph-title {
+            <!--color: gray;-->
+        }
 
-.line-neg {
-  fill: none;
-  stroke: red;
-  stroke-width: 1.5px;
-}
+        html,body{
+            height: 98%;
+        }
 
-</style>
-<body>
-<script src="//d3js.org/d3.v3.min.js"></script>
-<script>
+        body{
+            background-color: black;
+            color: #FFFFFF;
+        }
 
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+        .container {
+            display:flex;
+            align-items: stretch;
+            height: 100%;
+        }
+        .flex-item-1 {
+            flex: 1;
+        }
+    </style>
 
-// var formatDate = d3.time.format("%d-%b-%y");
-var formatDate = d3.time.format("%Y-%m-%d");
-
-var x = d3.time.scale()
-    .range([0, width]);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
-
-var line = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.weigth); });
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.tsv("data.tsv", type, function(error, data) {
-  if (error) throw error;
-
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.weigth; }));
-
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Gewicht (Kilo's)");
-
-  for(var i = 0; i < data.length; i++){
-      line_part = data.slice(i,i+2);
-      if(line_part.length != 2){
-          break;
-      }
-      if(line_part[0].weigth < line_part[1].weigth){
-          svg.append("path")
-              .datum(line_part)
-              .attr("class", "line-neg")
-              .attr("d", line);
-      }else{
-          svg.append("path")
-              .datum(line_part)
-              .attr("class", "line-pos")
-              .attr("d", line);
-      }
-  }
-});
-
-function type(d) {
-  d.date = formatDate.parse(d.date);
-  d.weigth = +d.weigth;
-  return d;
-}
-
-</script>
-
-</body>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
+    <div id="container" class="container">
+        <div id="graph" class="flex-item-1">
+        </div>
+    </div>
+    <script>
+        new Dygraph(document.getElementById("graph"),
+                 "/data.tsv",
+                 {
+                     legend: 'never',
+                     animatedZooms: true,
+                     title: 'Gewicht',
+                     drawXGrid: false,
+                     strokeWidth: 3.5,
+                     axisLabelColor: '#FF9933',
+                     axisLineColor: '#FFFFFF',
+                     axisLabelWidth: 70,
+                     color: '#FF9933',
+                     highlightCircleSize: 7,
+         });
+    </script>
+  </body>
+</html>

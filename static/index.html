@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <style>
+        body,html{
+            height: 100%;
+            background: black;
+            color: #FF9933;
+        }
+        a{
+            color: #FF9933;
+        }
+        h1{
+            margin-top: 200px;
+            margin-bottom: 20px;
+        }
+        .container{
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+        }
+        .flex-item-1{
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <H1> Freek's gewichts monitor</h1>
+    <div class="container">
+        <form action="/insert" method="post" class="flex-item-1">
+            Gewicht: <input type="text" name="weigth" autofocus>
+            <input type="submit" value="Invoeren">
+        </form>
+        <a href="/graph">Grafiek</a>
+    </div>
+</body>
