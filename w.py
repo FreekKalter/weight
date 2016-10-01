@@ -41,7 +41,7 @@ def insert():
 
 @app.route("/graph")
 def graph():
-    return render_template('graph.html')
+    return redirect(url_for('static', filename='graph.html'))
 
 
 @app.route('/data.tsv')
