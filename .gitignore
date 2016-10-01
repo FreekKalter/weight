@@ -1,3 +1,5 @@
 *.db
 *.log
-*.pyc
+*.py[cod]
+__pycache__/
+/instance

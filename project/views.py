@@ -1,9 +1,7 @@
-from flask import Flask
 from flask import render_template, request, redirect, url_for
 import sqlite3
 from datetime import date
-
-app = Flask(__name__)
+from . import app
 
 
 @app.route("/")
@@ -63,6 +61,3 @@ def get():
     cur.execute('select * from weigths')
     all = cur.fetchall()
     return(render_template('table.html', rows=all))
-
-if __name__ == '__main__':
-    app.run(debug=True)
