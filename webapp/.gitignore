@@ -1,0 +1,6 @@
+*.db
+*.log
+*.py[cod]
+__pycache__/
+/instance
+/myenv
