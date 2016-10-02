@@ -1,4 +1,11 @@
 version: '2'
 services:
     web:
-        build: 
+        build: webapp/
+        volumes:
+            - ./webapp/instance/:/code/instance
+            - ./webapp/weight:/code/weight
+    nginx:
+        build: nginx/
+        ports:
+            - "80:80"
