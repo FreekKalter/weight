@@ -6,4 +6,4 @@ ADD run.py /code
 
 WORKDIR /code
 RUN pip install -r weight/requirements.txt
-CMD gunicorn -w 2 -b 0.0.0.0:5000 weight:app
+CMD gunicorn -w 2 -b 0.0.0.0:5000 --reload weight:app
