@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, send_file
 import sqlite3
 from datetime import date
 from . import app
@@ -6,7 +6,7 @@ from . import app
 
 @app.route("/")
 def root():
-    return redirect(url_for('static', filename="index.html"))
+    return send_file('static/index.html')
 
 
 @app.route('/clear')
@@ -34,12 +34,12 @@ def insert():
     with conn:
         conn.execute('insert into weigths values (?, ?)', (date.today(), converted))
     conn.close()
-    return redirect(url_for('graph'))
+    return send_file('static/graph.html')
 
 
 @app.route("/graph")
 def graph():
-    return redirect(url_for('static', filename='graph.html'))
+    return send_file('static/graph.html')
 
 
 @app.route('/data.tsv')
