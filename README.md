@@ -1,4 +1,5 @@
 # files/dirs to create before running service
+ [GPL v3] (https://github.com/FreekKalter/weight/blob/master/LICENSE.md)
 
 ## nginx ssl certificates
 
@@ -7,12 +8,12 @@
 - *when youre using letsencrypt:* nginx/letsencrypt-webroot/.well-known
 
 ## data dir (file optional)
-data/(weight.db)
+- data/(weight.db)
 
 ## python webapp config file
-webapp/instance/flask.cfg
+- webapp/instance/flask.cfg
 
-### example flask.cfg
+* example flask.cfg *
     import os
 
 
