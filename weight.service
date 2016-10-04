@@ -1,0 +1,11 @@
+[Unit]
+Description=Weight tracking webapp
+After=docker.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/docker-compose -f /home/fkalter/weight/docker-compose.yml up --build
+ExecStop=/usr/local/bin/docker-compose -f /home/fkalter/weight/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target
