@@ -2,21 +2,17 @@
 
 ## nginx ssl certificates
 
-nginx/certificates/fullchain.pem
-nginx/certificates/privkey.pem
-*when youre using letsencrypt*
-nginx/letsencrypt-webroot/.well-known
+- nginx/certificates/fullchain.pem
+- nginx/certificates/privkey.pem
+- *when youre using letsencrypt:* nginx/letsencrypt-webroot/.well-known
 
 ## data dir (file optional)
-
 data/(weight.db)
 
 ## python webapp config file
-
 webapp/instance/flask.cfg
 
-### example config
-
+### example flask.cfg
     import os
 
 
