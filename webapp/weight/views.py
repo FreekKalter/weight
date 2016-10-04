@@ -3,6 +3,8 @@ import sqlite3
 from datetime import date
 from . import app
 
+db = '/data/weight.db'
+
 
 @app.route("/")
 def root():
@@ -11,7 +13,7 @@ def root():
 
 @app.route('/clear')
 def clear():
-    conn = sqlite3.connect('weigth.db')
+    conn = sqlite3.connect(db)
     try:
         conn.execute('''DROP TABLE weigths''')
     except sqlite3.OperationalError:
@@ -30,7 +32,7 @@ def insert():
     except ValueError:
         return 'Weigth not valid number'
 
-    conn = sqlite3.connect('weigth.db')
+    conn = sqlite3.connect(db)
     with conn:
         conn.execute('insert into weigths values (?, ?)', (date.today(), converted))
     conn.close()
@@ -44,7 +46,7 @@ def graph():
 
 @app.route('/data.tsv')
 def data():
-    conn = sqlite3.connect('weigth.db')
+    conn = sqlite3.connect(db)
     cur = conn.cursor()
     cur.execute('select * from weigths order by date')
     all = cur.fetchall()
@@ -56,7 +58,7 @@ def data():
 
 @app.route('/get')
 def get():
-    conn = sqlite3.connect('weigth.db')
+    conn = sqlite3.connect(db)
     cur = conn.cursor()
     cur.execute('select * from weigths')
     all = cur.fetchall()
