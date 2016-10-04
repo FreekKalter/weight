@@ -1,5 +1,7 @@
 FROM python:3.6
 
+EXPOSE 5000
+
 ADD instance /code/instance
 ADD weight /code/weight
 ADD run.py /code

@@ -8,4 +8,7 @@ services:
     nginx:
         build: nginx/
         ports:
-            - "80:80"
+            - "1443:1443"
+        volumes:
+            - ./nginx/certificates/:/certificates
+            - ./nginx/letsencrypt-webroot:/letsencrypt
